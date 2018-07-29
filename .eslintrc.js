@@ -12,6 +12,9 @@ module.exports = {
     "comma-dangle": ["error", "never"],
     quotes: 0,
     semi: [2, "always"],
-    "space-before-function-paren": 0
+    "space-before-function-paren": 0,
+    "class-methods-use-this": 0,
+    "nonblock-statement-body-position": 0,
+    "operator-linebreak": 0
   }
 };

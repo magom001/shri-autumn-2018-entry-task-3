@@ -47,4 +47,12 @@ function dotProduct(v1 = [], v2 = []) {
   return v1.reduce((acc, curr, index) => acc + curr * v2[index], 0);
 }
 
-module.exports = { ratesParser, dotProduct };
+function separateAppliancesByType({ devices }) {
+  const realTimeAppliances = devices.filter(device => device.duration === 24);
+  const schedulableAppliances = devices.filter(
+    device => device.duration !== 24
+  );
+  return { realTimeAppliances, schedulableAppliances };
+}
+
+module.exports = { ratesParser, dotProduct, separateAppliancesByType };
