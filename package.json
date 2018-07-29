@@ -4,7 +4,7 @@
   "description": "Yandex Academy Frontend Development School Entry Task 3",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --watch"
   },
   "author": "Arkady Magomedov",
   "license": "ISC",
