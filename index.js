@@ -1,5 +1,3 @@
-const { ratesParser, separateAppliancesByType } = require("./helpers");
-
 module.exports = class Schedule {
   constructor(input) {
     //
@@ -67,7 +65,7 @@ module.exports = class Schedule {
     //
     // Convert into an array of rates
     //
-    this.rates = ratesParser({ rates });
+    this.rates = this.ratesParser({ rates });
 
     this.MODE_RATES = {
       day: this.getModeRates(this.MODES.day),
@@ -82,7 +80,7 @@ module.exports = class Schedule {
     const {
       schedulableAppliances,
       realTimeAppliances
-    } = separateAppliancesByType({
+    } = this.separateAppliancesByType({
       devices
     });
 
@@ -183,6 +181,48 @@ module.exports = class Schedule {
     // Calculate initial values
     //
     this.mapHourlyEnergyConsumption();
+  }
+
+  /**
+   *
+   * Converts energy rates provided in objecto form
+   * to an array of length 24
+   * in which each index represents an hour of the day
+   *
+   * @param {Object} input
+   * @param {Object[]} input.rates[]      - Information of energy tariffs for day periods
+   * @param {number} input.rates[].from   - Starting time
+   * @param {number} input.rates[].to     - End time
+   * @param {number} input.rates[].value  - Energy cost
+   * @returns {number[]}                  - Returns an array of lenght 24 of hourly rates
+   *
+   */
+  ratesParser({ rates = [] }) {
+    if (rates.length === 0) throw new Error("No rates supplied");
+    const output = new Array(24).fill(undefined);
+    rates.forEach(rate => {
+      let i = rate.from;
+      do {
+        output[i] = rate.value;
+        i += 1;
+        if (i === 24) i = 0;
+      } while (i < rate.to);
+    });
+
+    // Throw an error if at least for one time period the rate is null, undefined or 0
+    if (output.some(value => !value)) {
+      throw new Error("Invalid rates supplied");
+    }
+
+    return output;
+  }
+
+  separateAppliancesByType({ devices }) {
+    const realTimeAppliances = devices.filter(device => device.duration === 24);
+    const schedulableAppliances = devices.filter(
+      device => device.duration !== 24
+    );
+    return { realTimeAppliances, schedulableAppliances };
   }
 
   /**
@@ -329,6 +369,9 @@ module.exports = class Schedule {
     }
 
     // return the time slot for which we have the minimum cost
+    // TODO: need to handle situations where no slots are available:
+    //       1. Try to reschedule other appliances;
+    //       2. If not possible throw an error?
     return totalExpensePerCycle.indexOf(Math.min(...totalExpensePerCycle));
   }
 
