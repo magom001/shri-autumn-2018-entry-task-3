@@ -1,8 +1,7 @@
-const Schedule = require("./index");
+const scheduleInstance = require("./index");
 
 describe.only("Schedule:", () => {
   let input;
-  let schedule;
   let result;
   const output = {
     schedule: {
@@ -21,34 +20,13 @@ describe.only("Schedule:", () => {
         "1E6276CC231716FE8EE8BC908486D41E",
         "F972B82BA56A70CC579945773B6866FB"
       ],
-      3: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      4: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      5: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      6: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      7: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      8: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      9: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
+      3: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      4: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      5: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      6: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      7: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      8: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      9: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
       10: [
         "02DDD23A85DADDD71198305330CC386D",
         "1E6276CC231716FE8EE8BC908486D41E",
@@ -59,50 +37,17 @@ describe.only("Schedule:", () => {
         "1E6276CC231716FE8EE8BC908486D41E",
         "C515D887EDBBE669B2FDAC62F571E9E9"
       ],
-      12: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      13: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      14: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      15: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      16: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      17: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      18: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      19: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      20: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      21: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
-      22: [
-        "02DDD23A85DADDD71198305330CC386D",
-        "1E6276CC231716FE8EE8BC908486D41E"
-      ],
+      12: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      13: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      14: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      15: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      16: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      17: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      18: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      19: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      20: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      21: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      22: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
       23: [
         "02DDD23A85DADDD71198305330CC386D",
         "1E6276CC231716FE8EE8BC908486D41E",
@@ -185,15 +130,15 @@ describe.only("Schedule:", () => {
       ],
       maxPower: 2100
     };
-    schedule = new Schedule(input);
-    result = schedule.createSchedule();
+
+    result = scheduleInstance.createSchedule(input);
   });
 
   test("should parse rates to an array", () => {
-    expect(schedule.rates.length).toBe(24);
+    expect(scheduleInstance.rates.length).toBe(24);
   });
   test("schedule instance variable should be an object with 24 keys", () => {
-    expect(Object.keys(schedule.schedule).length).toBe(24);
+    expect(Object.keys(scheduleInstance.schedule).length).toBe(24);
   });
 
   test("real time appliances must be always turned on", () => {
@@ -203,11 +148,11 @@ describe.only("Schedule:", () => {
   });
 
   test("energy consumption at each given slot should not exceed total energy available", () => {
-    expect(schedule.maxPower).toEqual(input.maxPower);
+    expect(scheduleInstance.maxPower).toEqual(input.maxPower);
     Object.values(result.schedule).forEach(timeSlot => {
       expect(
-        schedule.calculateHourlyEnergyConsumption(timeSlot, schedule.devicesMap)
-      ).toBeLessThanOrEqual(schedule.maxPower);
+        scheduleInstance.calculateHourlyEnergyConsumption(timeSlot, scheduleInstance.devicesMap)
+      ).toBeLessThanOrEqual(scheduleInstance.maxPower);
     });
   });
 
@@ -275,47 +220,39 @@ describe.only("Schedule:", () => {
 
     test("should throw an error if passed en empty array as argument", () => {
       expect(() => {
-        schedule.ratesParser({ rates: [] });
+        scheduleInstance.ratesParser({ rates: [] });
       }).toThrow("No rates supplied");
     });
 
     test("should return an array of length 24", () => {
-      expect(schedule.ratesParser({ rates }).length).toBe(24);
+      expect(scheduleInstance.ratesParser({ rates }).length).toBe(24);
     });
 
     test("should return an array filled with 1", () => {
-      const input = [
-        { from: 23, to: 5, value: 1 },
-        { from: 5, to: 23, value: 1 }
-      ];
-      expect(schedule.ratesParser({ rates: input })).toEqual(
-        new Array(24).fill(1)
-      );
+      const inputMock = [{ from: 23, to: 5, value: 1 }, { from: 5, to: 23, value: 1 }];
+      expect(scheduleInstance.ratesParser({ rates: inputMock })).toEqual(new Array(24).fill(1));
     });
 
     test("should throw an error 'Invalid rates supplied' if for at least one time period the rate is undefined", () => {
-      const input = [
-        { from: 23, to: 3, value: 1 },
-        { from: 5, to: 23, value: 1 }
-      ];
+      const inputMock = [{ from: 23, to: 3, value: 1 }, { from: 5, to: 23, value: 1 }];
       expect(() => {
-        schedule.ratesParser({ rates: input });
+        scheduleInstance.ratesParser({ rates: inputMock });
       }).toThrow("Invalid rates supplied");
     });
 
     test("should throw an error 'Invalid rates supplied' if for at least one time period the rate is 0", () => {
-      const input = [
+      const inputMock = [
         { from: 23, to: 4, value: 1 },
         { from: 4, to: 5, value: 0 },
         { from: 5, to: 23, value: 1 }
       ];
       expect(() => {
-        schedule.ratesParser({ rates: input });
+        scheduleInstance.ratesParser({ rates: inputMock });
       }).toThrow("Invalid rates supplied");
     });
 
     test("output should equal the expected array", () => {
-      expect(schedule.ratesParser({ rates })).toEqual(expectedOutput);
+      expect(scheduleInstance.ratesParser({ rates })).toEqual(expectedOutput);
     });
   });
 });

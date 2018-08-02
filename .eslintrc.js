@@ -15,6 +15,7 @@ module.exports = {
     "space-before-function-paren": 0,
     "class-methods-use-this": 0,
     "nonblock-statement-body-position": 0,
-    "operator-linebreak": 0
+    "operator-linebreak": 0,
+    "no-continue": 0
   }
 };
