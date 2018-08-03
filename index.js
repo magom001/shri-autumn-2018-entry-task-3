@@ -211,12 +211,24 @@ class Schedule {
     if (rates.length === 0) throw new Error("No rates supplied");
     const output = new Array(24).fill(undefined);
     rates.forEach(rate => {
-      let i = rate.from;
-      do {
-        output[i] = rate.value;
-        i += 1;
-        if (i === 24) i = 0;
-      } while (i < rate.to);
+      const { from, to, value } = rate;
+
+      if (from < 0 || from > 24 || to < 0 || to > 24) {
+        throw new Error("Invalid rates supplied");
+      }
+
+      if (from < to) {
+        for (let i = from; i < to; i += 1) {
+          output[i] = value;
+        }
+      } else {
+        for (let i = from; i < 24; i += 1) {
+          output[i] = value;
+        }
+        for (let i = 0; i < to; i += 1) {
+          output[i] = value;
+        }
+      }
     });
 
     // Throw an error if at least for one time period the rate is null, undefined or 0

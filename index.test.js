@@ -160,6 +160,67 @@ describe.only("Schedule:", () => {
     expect(result.consumedEnergy).toEqual(output.consumedEnergy);
   });
 
+  test("should place appliances to the least expensive slot", () => {
+    let inputMock = {
+      devices: [
+        {
+          id: "F972B82BA56A70CC579945773B6866FB",
+          name: "Посудомоечная машина",
+          power: 950,
+          duration: 1
+        }
+      ],
+      rates: [{ from: 0, to: 1, value: 1 }, { from: 1, to: 24, value: 2 }],
+      maxPower: 2100
+    };
+
+    expect(scheduleInstance.createSchedule(inputMock).schedule[0].length).toEqual(1);
+
+    inputMock = {
+      devices: [
+        {
+          id: "F972B82BA56A70CC579945773B6866FB",
+          name: "Посудомоечная машина",
+          power: 950,
+          duration: 1
+        }
+      ],
+      rates: [{ from: 1, to: 2, value: 1 }, { from: 2, to: 1, value: 2 }],
+      maxPower: 2100
+    };
+
+    expect(scheduleInstance.createSchedule(inputMock).schedule[1].length).toEqual(1);
+
+    inputMock = {
+      devices: [
+        {
+          id: "F972B82BA56A70CC579945773B6866FB",
+          name: "Посудомоечная машина",
+          power: 2000,
+          duration: 1
+        },
+        {
+          id: "7D9DC84AD110500D284B33C82FE6E85E",
+          name: "Кондиционер",
+          power: 850,
+          duration: 1
+        }
+      ],
+      rates: [
+        { from: 1, to: 2, value: 1 },
+        { from: 2, to: 23, value: 2 },
+        { from: 23, to: 24, value: 1 },
+        { from: 24, to: 1, value: 2 }
+      ],
+      maxPower: 2100
+    };
+
+    const testResult = scheduleInstance.createSchedule(inputMock);
+
+    expect(testResult.schedule[1].length).toEqual(1);
+    expect(testResult.schedule[23].length).toEqual(1);
+  });
+
   describe("ratesParser:", () => {
     let rates;
     const expectedOutput = [
@@ -241,7 +302,7 @@ describe.only("Schedule:", () => {
     });
 
     test("should throw an error 'Invalid rates supplied' if for at least one time period the rate is 0", () => {
-      const inputMock = [
+      let inputMock = [
         { from: 23, to: 4, value: 1 },
         { from: 4, to: 5, value: 0 },
         { from: 5, to: 23, value: 1 }
@@ -249,10 +310,34 @@ describe.only("Schedule:", () => {
       expect(() => {
         scheduleInstance.ratesParser({ rates: inputMock });
       }).toThrow("Invalid rates supplied");
-    });
 
+      inputMock = [{ from: 0, to: 25, value: 1 }];
+      expect(() => {
+        scheduleInstance.ratesParser({ rates: inputMock });
+      }).toThrow("Invalid rates supplied");
+    });
     test("output should equal the expected array", () => {
       expect(scheduleInstance.ratesParser({ rates })).toEqual(expectedOutput);
+    });
+
+    test("should fill array correctly with various input parameters", () => {
+      let inputMock = [{ from: 0, to: 24, value: 1 }];
+      let outputMock = scheduleInstance.ratesParser({ rates: inputMock });
+
+      expect(outputMock.length).toEqual(24);
+      expect(outputMock.every(v => v === 1)).toBe(true);
+
+      inputMock = [{ from: 15, to: 15, value: 1 }];
+      outputMock = scheduleInstance.ratesParser({ rates: inputMock });
+
+      expect(outputMock.length).toEqual(24);
+      expect(outputMock.every(v => v === 1)).toBe(true);
+
+      inputMock = [{ from: 0, to: 1, value: 1 }, { from: 1, to: 24, value: 2 }];
+      outputMock = scheduleInstance.ratesParser({ rates: inputMock });
+
+      expect(outputMock.length).toEqual(24);
+      expect(outputMock.indexOf(1) === outputMock.lastIndexOf(1)).toBe(true);
     });
   });
 });
