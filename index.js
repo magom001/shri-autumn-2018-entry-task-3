@@ -4,12 +4,18 @@ class Schedule {
     this.ratesParser = this.ratesParser.bind(this);
     this.separateAppliancesByType = this.separateAppliancesByType.bind(this);
     this.getModeRates = this.getModeRates.bind(this);
-    this.mapHourlyEnergyConsumption = this.mapHourlyEnergyConsumption.bind(this);
-    this.calculateHourlyEnergyConsumption = this.calculateHourlyEnergyConsumption.bind(this);
+    this.mapHourlyEnergyConsumption = this.mapHourlyEnergyConsumption.bind(
+      this
+    );
+    this.calculateHourlyEnergyConsumption = this.calculateHourlyEnergyConsumption.bind(
+      this
+    );
     this.sortSchedulableAppliancesByPowerDesc = this.sortSchedulableAppliancesByPowerDesc.bind(
       this
     );
-    this.calculateTotalValueConsummed = this.calculateTotalValueConsummed.bind(this);
+    this.calculateTotalValueConsummed = this.calculateTotalValueConsummed.bind(
+      this
+    );
     this.scheduleAppliance = this.scheduleAppliance.bind(this);
     this.findAvailableSlot = this.findAvailableSlot.bind(this);
   }
@@ -92,18 +98,16 @@ class Schedule {
     // Realtime appliances - must run 24/24
     // Schedulable appliances - can be turned off and on
     //
-    const { schedulableAppliances, realTimeAppliances } = this.separateAppliancesByType({
+    this.separateAppliancesByType({
       devices
     });
 
-    this.realTimeAppliances = realTimeAppliances;
-    this.schedulableAppliances = schedulableAppliances;
-
     //
-    // A convenience Map to simplify calculations
+    // A Map to simplify calculations
     // A simple Object could be used
     //
     this.devicesMap = new Map();
+
     devices.forEach(device => {
       this.devicesMap.set(device.id, device);
     });
@@ -123,7 +127,9 @@ class Schedule {
     //
     // Real time appliances must always run regardless of the cost
     //
-    const realTimeAppliancesArray = this.realTimeAppliances.map(appliance => appliance.id);
+    const realTimeAppliancesArray = this.realTimeAppliances.map(
+      appliance => appliance.id
+    );
 
     //
     // Our initial schedule
@@ -241,7 +247,13 @@ class Schedule {
 
   separateAppliancesByType({ devices }) {
     const realTimeAppliances = devices.filter(device => device.duration === 24);
-    const schedulableAppliances = devices.filter(device => device.duration !== 24);
+    const schedulableAppliances = devices.filter(
+      device => device.duration !== 24
+    );
+
+    this.realTimeAppliances = realTimeAppliances;
+    this.schedulableAppliances = schedulableAppliances;
+
     return { realTimeAppliances, schedulableAppliances };
   }
 
@@ -264,7 +276,9 @@ class Schedule {
         this.devicesMap
       );
       if (this.hourlyConsumption[i] > this.maxPower) {
-        throw new Error("Hourly energy consumption should not exceed max available energy");
+        throw new Error(
+          "Hourly energy consumption should not exceed max available energy"
+        );
       }
     }
   }
@@ -279,7 +293,10 @@ class Schedule {
    *
    */
   calculateHourlyEnergyConsumption(scheduledDevices, devices) {
-    return scheduledDevices.reduce((acc, device) => acc + devices.get(device).power, 0);
+    return scheduledDevices.reduce(
+      (acc, device) => acc + devices.get(device).power,
+      0
+    );
   }
 
   sortSchedulableAppliancesByPowerDesc() {
@@ -294,7 +311,8 @@ class Schedule {
         value += this.rates[i] * this.devicesMap.get(this.schedule[i][j]).power;
         if (!devices[this.schedule[i][j]]) devices[this.schedule[i][j]] = 0;
         devices[this.schedule[i][j]] +=
-          (this.rates[i] * this.devicesMap.get(this.schedule[i][j]).power) / 1000;
+          (this.rates[i] * this.devicesMap.get(this.schedule[i][j]).power) /
+          1000;
         devices[this.schedule[i][j]] = Number.parseFloat(
           devices[this.schedule[i][j]].toPrecision(10)
         );
@@ -321,7 +339,11 @@ class Schedule {
   scheduleAppliance(appliance) {
     let { rates } = this;
     if (appliance.mode) rates = this.MODE_RATES[appliance.mode];
-    const availableSlot = this.findAvailableSlot(rates, appliance.power, appliance.duration);
+    const availableSlot = this.findAvailableSlot(
+      rates,
+      appliance.power,
+      appliance.duration
+    );
 
     this.updateSchedule(availableSlot, appliance);
   }
@@ -352,12 +374,10 @@ class Schedule {
    * @param {number} duration - appliance's run cycle
    */
   findAvailableSlot(rates, power, duration) {
-    // Keep track of total expense at each given start time
     const totalExpensePerCycle = new Array(24).fill(undefined);
     const min = { index: 0, value: Infinity };
 
     for (let i = 0; i < 24; i += 1) {
-      if (totalExpensePerCycle[i] !== undefined) continue;
       totalExpensePerCycle[i] = 0;
 
       for (let j = 0; j < duration; j += 1) {
@@ -377,11 +397,11 @@ class Schedule {
 
         // Calculate total expense per cycle at a given start time
         totalExpensePerCycle[i] += rates[k] * power;
+      }
 
-        if (totalExpensePerCycle[i] < min.value) {
-          min.index = i;
-          min.value = totalExpensePerCycle[i];
-        }
+      if (totalExpensePerCycle[i] < min.value) {
+        min.index = i;
+        min.value = totalExpensePerCycle[i];
       }
     }
 
@@ -389,8 +409,6 @@ class Schedule {
     // TODO: need to handle situations where no slots are available:
     //       1. Try to reschedule other appliances;
     //       2. If not possible throw an error?
-    // return totalExpensePerCycle.indexOf(Math.min(...totalExpensePerCycle));
-
     if (min.value !== Infinity) {
       return min.index;
     }
@@ -415,4 +433,8 @@ class Schedule {
 
 const scheduleInstance = new Schedule();
 
-module.exports = scheduleInstance;
+module.exports = {
+  scheduleInstance,
+  Schedule,
+  createSchedule: scheduleInstance.createSchedule
+};

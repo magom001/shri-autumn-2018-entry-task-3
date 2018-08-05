@@ -1,4 +1,4 @@
-const schedule = require("./");
+const { scheduleInstance } = require("./index");
 
 const input = {
   devices: [
@@ -67,6 +67,6 @@ const input = {
 
 console.time("dbsave");
 
-console.log(schedule.createSchedule(input));
+console.log(scheduleInstance.createSchedule(input));
 
 console.timeEnd("dbsave");

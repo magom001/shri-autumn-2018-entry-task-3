@@ -1,4 +1,4 @@
-const scheduleInstance = require("./index");
+const { scheduleInstance, Schedule } = require("./index");
 
 describe.only("Schedule:", () => {
   let input;
@@ -20,13 +20,34 @@ describe.only("Schedule:", () => {
         "1E6276CC231716FE8EE8BC908486D41E",
         "F972B82BA56A70CC579945773B6866FB"
       ],
-      3: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      4: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      5: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      6: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      7: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      8: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      9: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      3: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      4: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      5: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      6: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      7: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      8: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      9: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
       10: [
         "02DDD23A85DADDD71198305330CC386D",
         "1E6276CC231716FE8EE8BC908486D41E",
@@ -37,17 +58,50 @@ describe.only("Schedule:", () => {
         "1E6276CC231716FE8EE8BC908486D41E",
         "C515D887EDBBE669B2FDAC62F571E9E9"
       ],
-      12: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      13: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      14: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      15: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      16: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      17: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      18: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      19: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      20: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      21: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
-      22: ["02DDD23A85DADDD71198305330CC386D", "1E6276CC231716FE8EE8BC908486D41E"],
+      12: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      13: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      14: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      15: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      16: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      17: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      18: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      19: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      20: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      21: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
+      22: [
+        "02DDD23A85DADDD71198305330CC386D",
+        "1E6276CC231716FE8EE8BC908486D41E"
+      ],
       23: [
         "02DDD23A85DADDD71198305330CC386D",
         "1E6276CC231716FE8EE8BC908486D41E",
@@ -151,7 +205,10 @@ describe.only("Schedule:", () => {
     expect(scheduleInstance.maxPower).toEqual(input.maxPower);
     Object.values(result.schedule).forEach(timeSlot => {
       expect(
-        scheduleInstance.calculateHourlyEnergyConsumption(timeSlot, scheduleInstance.devicesMap)
+        scheduleInstance.calculateHourlyEnergyConsumption(
+          timeSlot,
+          scheduleInstance.devicesMap
+        )
       ).toBeLessThanOrEqual(scheduleInstance.maxPower);
     });
   });
@@ -174,7 +231,9 @@ describe.only("Schedule:", () => {
       maxPower: 2100
     };
 
-    expect(scheduleInstance.createSchedule(inputMock).schedule[0].length).toEqual(1);
+    expect(
+      scheduleInstance.createSchedule(inputMock).schedule[0].length
+    ).toEqual(1);
 
     inputMock = {
       devices: [
@@ -189,7 +248,9 @@ describe.only("Schedule:", () => {
       maxPower: 2100
     };
 
-    expect(scheduleInstance.createSchedule(inputMock).schedule[1].length).toEqual(1);
+    expect(
+      scheduleInstance.createSchedule(inputMock).schedule[1].length
+    ).toEqual(1);
 
     inputMock = {
       devices: [
@@ -219,6 +280,83 @@ describe.only("Schedule:", () => {
 
     expect(testResult.schedule[1].length).toEqual(1);
     expect(testResult.schedule[23].length).toEqual(1);
+  });
+
+  describe("findAvailableSlot", () => {
+    let schedule;
+    beforeEach(() => {
+      schedule = new Schedule();
+    });
+    test("should return the slot with the least cost", () => {
+      const baseRates = new Array(24).fill(2);
+      const power = 100;
+      const duration = 1;
+
+      schedule.maxPower = 2000;
+      schedule.hourlyConsumption = new Array(24)
+        .fill(1)
+        .reduce((acc, _, index) => {
+          acc[index] = 0;
+          return acc;
+        }, {});
+
+      for (let i = 0; i < 24; i += 1) {
+        const rates = [...baseRates];
+        rates[i] = 1;
+
+        expect(schedule.findAvailableSlot(rates, power, duration)).toBe(i);
+      }
+    });
+
+    test("for devices with duration > 1 must calculate the least expensive starting time for the whole duration", () => {
+      const baseRates = new Array(24).fill(2);
+      const power = 100;
+      const duration = 3;
+
+      schedule.maxPower = 2000;
+      schedule.hourlyConsumption = new Array(24)
+        .fill(1)
+        .reduce((acc, _, index) => {
+          acc[index] = 0;
+          return acc;
+        }, {});
+
+      let rates = [...baseRates];
+      rates[0] = 1;
+      rates[2] = 1;
+
+      expect(schedule.findAvailableSlot(rates, power, duration)).toBe(0);
+
+      rates[20] = 0.5;
+      rates[22] = 0.5;
+
+      expect(schedule.findAvailableSlot(rates, power, duration)).toBe(20);
+
+      rates = [...baseRates];
+
+      rates[23] = 1;
+      rates[1] = 1;
+
+      expect(schedule.findAvailableSlot(rates, power, duration)).toBe(23);
+    });
+
+    test("should throw an error if unable to find a slot", () => {
+      const rates = new Array(24).fill(2);
+      const power = 200;
+      const duration = 3;
+
+      schedule.maxPower = 2000;
+      schedule.hourlyConsumption = new Array(24)
+        .fill(1)
+        .reduce((acc, _, index) => {
+          acc[index] = 1900;
+          return acc;
+        }, {});
+
+      expect(() => {
+        schedule.findAvailableSlot(rates, power, duration);
+      }).toThrow("Unable to make a schedule with given input parameters");
+    });
   });
 
   describe("ratesParser:", () => {
@@ -290,12 +428,20 @@ describe.only("Schedule:", () => {
     });
 
     test("should return an array filled with 1", () => {
-      const inputMock = [{ from: 23, to: 5, value: 1 }, { from: 5, to: 23, value: 1 }];
-      expect(scheduleInstance.ratesParser({ rates: inputMock })).toEqual(new Array(24).fill(1));
+      const inputMock = [
+        { from: 23, to: 5, value: 1 },
+        { from: 5, to: 23, value: 1 }
+      ];
+      expect(scheduleInstance.ratesParser({ rates: inputMock })).toEqual(
+        new Array(24).fill(1)
+      );
     });
 
     test("should throw an error 'Invalid rates supplied' if for at least one time period the rate is undefined", () => {
-      const inputMock = [{ from: 23, to: 3, value: 1 }, { from: 5, to: 23, value: 1 }];
+      const inputMock = [
+        { from: 23, to: 3, value: 1 },
+        { from: 5, to: 23, value: 1 }
+      ];
       expect(() => {
         scheduleInstance.ratesParser({ rates: inputMock });
       }).toThrow("Invalid rates supplied");
